@@ -79,3 +79,69 @@ public class ArticuloMenu {
         return tipo + ": " + cantidad + " uds " + nombre + " ~ " + precioUnitario + " €/ud";
     }
 }
+class Fiesta {
+    private String nombre;
+    private String fecha;
+    private String lugar;
+    private int aforo;
+
+    private ArrayList<Invitado> invitados = new ArrayList<>();
+    private ArrayList<ArticuloMenu> menu = new ArrayList<>();
+
+    public Fiesta(String nombre, String fecha, String lugar, int aforo) {
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.lugar = lugar;
+        this.aforo = aforo;
+    }
+
+    public void agregarInvitado(Invitado invitado) {
+        invitados.add(invitado);
+    }
+
+    public void confirmarAsistencia(Invitado invitado) {
+        if (contarConfirmados() < aforo) {
+            invitado.confirmar();
+        } else {
+            invitado.rechazar();
+        }
+    }
+
+    public int contarConfirmados() {
+        int contador = 0;
+        for (Invitado i : invitados) {
+            if (i.getEstado() == EstadoConfirmacion.CONFIRMADO) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public void agregarArticulo(ArticuloMenu articulo) {
+        menu.add(articulo);
+    }
+
+    public double calcularCosteTotal() {
+        double total = 0;
+        for (ArticuloMenu a : menu) {
+            total += a.calcularSubtotal();
+        }
+        return total;
+    }
+
+    public void mostrarResumen() {
+        System.out.println("Fiesta: " + nombre + " - " + fecha + " - " + lugar + " - Aforo: " + aforo);
+
+        System.out.println("\nInvitados:");
+        for (Invitado i : invitados) {
+            System.out.println(i);
+        }
+
+        System.out.println("\nMenú:");
+        for (ArticuloMenu a : menu) {
+            System.out.println(a);
+        }
+
+        System.out.println("\nCoste total del menú: " + calcularCosteTotal() + "€");
+    }
+}
