@@ -24,3 +24,58 @@ public class Main {
         fiesta.mostrarResumen();
     }
 }
+enum EstadoConfirmacion { PENDIENTE, CONFIRMADO, RECHAZADO }
+
+public class Invitado {
+    private String nombre;
+    private String telefono;
+    private EstadoConfirmacion estado;
+
+    public Invitado(String nombre, String telefono) {
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.estado = EstadoConfirmacion.PENDIENTE;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public EstadoConfirmacion getEstado() {
+        return estado;
+    }
+
+    public void confirmar() {
+        estado = EstadoConfirmacion.CONFIRMADO;
+    }
+
+    public void rechazar() {
+        estado = EstadoConfirmacion.RECHAZADO;
+    }
+
+    public String toString() {
+        return nombre + " - Tel: " + telefono + " - " + estado;
+    }
+}
+
+public class ArticuloMenu {
+    private String tipo;
+    private String nombre;
+    private int cantidad;
+    private double precioUnitario;
+
+    public ArticuloMenu(String tipo, String nombre, int cantidad, double precioUnitario) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+    }
+
+    public double calcularSubtotal() {
+        return cantidad * precioUnitario;
+    }
+
+    public String toString() {
+        return tipo + ": " + cantidad + " uds " + nombre + " ~ " + precioUnitario + " €/ud";
+    }
+}
